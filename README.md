@@ -36,6 +36,9 @@ set a 2
 The task is to write a step-by-step interpreter for Guu.
 When it starts, the debugger should stop at the line with the first instruction of `sub main` and wait for user commands.
 
+The debugger command-line interface is gdb-like.
+To debug (or execute) guu program use the following command: `guudebug (filename)`
+
 Debugger commands:
 - `i` - step into, the debugger goes inside `call (subname)`
 - `o` - step over, the debugger doesn't go inside `call`
