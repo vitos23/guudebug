@@ -1,32 +1,24 @@
 package com.vitos23.guudebug.runtime
 
-import java.util.*
-
-class CallStack(private val stack: Stack<CallFrame> = Stack<CallFrame>()) {
+class CallStack(private val stack: ArrayList<CallFrame> = ArrayList()) {
 
     fun push(callFrame: CallFrame) {
-        stack.push(callFrame)
+        stack.add(callFrame)
     }
 
-    fun pop(): CallFrame = stack.pop()
+    fun pop(): CallFrame = stack.removeLast()
 
-    fun peek(): CallFrame = stack.peek()
+    fun peek(): CallFrame = stack.last()
 
-    fun isEmpty(): Boolean = stack.empty()
+    fun isEmpty(): Boolean = stack.isEmpty()
 
     fun size(): Int = stack.size
 
-    fun forEach(action: (CallFrame) -> Unit) {
-        for (frame in stack) {
-            action(frame)
-        }
-    }
+    fun forEach(action: (CallFrame) -> Unit): Unit = stack.forEach(action)
 
-    fun print() {
-        forEach { frame -> println(frame) }
-    }
+    fun print(): Unit = forEach { frame -> println(frame) }
 
-    fun copy(): CallStack = CallStack(stack.clone() as Stack<CallFrame>)
+    fun copy(): CallStack = CallStack(ArrayList(stack))
 
     fun asList(): List<CallFrame> = stack.toList()
 
@@ -36,4 +28,6 @@ class CallStack(private val stack: Stack<CallFrame> = Stack<CallFrame>()) {
 
         return (other as CallStack).stack == stack
     }
+
+    override fun hashCode(): Int = stack.hashCode()
 }
